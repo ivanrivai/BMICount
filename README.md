@@ -10,6 +10,7 @@ This is a simple apps to count the BMI (Body Mass Index) of a person. I develope
 6. Docker Desktop
 7. Github accounts
 8. Docker hub accounts
+9. Git
 
 <em>This application was developed using specifications above, it might have different syntax if you are using linux/macOS based, but the concept should be the same.</em>
 <em>For python installation, please visit https://python.org , recommended to use the latest stable build.</em>
@@ -36,19 +37,36 @@ This is a simple apps to count the BMI (Body Mass Index) of a person. I develope
 ## Additional
 1. Add secrets to Github, credentials for pushing image to dockerhub
 > Step 1  
-    ![Github Step 1](/image_resources/secret_github.png)  
+    ![Github Step 1](/image_resources/secret_github.PNG)  
 >>      From the repo Settings, click secret    
 > Step 2  
-    ![Github Step 1](/image_resources/secret_github_2.png)  
+    ![Github Step 2](/image_resources/secret_github_2.PNG)  
 >>      Click new repository secret  
 > Step 3  
-    ![Github Step 1](/image_resources/secret_github_3.png)  
+    ![Github Step 3](/image_resources/secret_github_3.PNG)  
 >>      Add a key DOCKER_HUB_USERNAME, and add the value  
 > Step 4  
-    ![Github Step 1](/image_resources/dockerhub_settings.png)  
+    ![Github Step 4](/image_resources/dockerhub_settings.PNG)  
 >>      Go to dockerhub repo, create new access token as above
 > Step 5  
-    ![Github Step 1](/image_resources/secret_github_4.png)  
+    ![Github Step 5](/image_resources/secret_github_4.PNG)  
 >>      Add another key DOCKER_HUB_ACCESS_TOKEN, and add the value from the docker hub access token, then we have 2 keys like this  
+<br />
 
+# Prerequisites for the service
+1. Create and clone repository by using git  
+![Github Step 1](/image_resources/git-1.PNG)  
+2. Create initial commit  
+![Github Step 2](/image_resources/git-2.PNG) 
+3. Github workflow before push  
+![Github Step 3](/image_resources/github-action0.PNG) 
+4. Git push  
+![Github Step 4](/image_resources/git-push.PNG) 
+5. After git push, workflow is automatically created and triggered via 'push' action  
+![Github Step 5](/image_resources/github-action1.PNG) 
+6. Job snippet
+![Github Step 6](/image_resources/github-action2.PNG) 
 
+<br />
+
+# Run the Service
