@@ -70,3 +70,64 @@ This is a simple apps to count the BMI (Body Mass Index) of a person. I develope
 <br />
 
 # Run the Service
+I am personally using docker-compose for the container orchestration. To be noted, by using docker-compose, the network is automatically created, so that the containers are packaged into 1 single isolated network, and can talk to each other.  
+1. Go to the project directory, and run command **docker-compose up -d**. -d is used for detached mode, meaning we can use the same terminal.  
+![Docker step 1](/image_resources/docker1.PNG)  
+<em> you can see that 4 containers are created, the flask (apps), and additional ELK stack for centralized logging. The process should be pulling all containers, but because i have pulled the ELK images before, the docker use the cached image.</em>  
+<br />
+
+2. If you want to see the running containers, run command **docker ps**.
+![Docker step 2](/image_resources/docker2.PNG) 
+<br />
+
+3. Now, all is up and running (it might take a while for the kibana to fully operates), let's access **http://localhost:5601**. The kibana should be showing, click the three-lines menu then navigate to <em>Discover</em>.    
+![Docker step 3](/image_resources/kibana.PNG)  
+<br />
+
+4. In here, we need to create the index pattern. Remember logstash.conf? in this part <em> index => "logs-%{+YYYY-MM-dd}" </em>. When you type logs-*, the kibana understands and match the search. Then proceed to the next step.
+![Docker step 4](/image_resources/kibana2.PNG)  
+<br />
+
+5. In the next section, we need to apply time filter for the logs. choose **@timestamp** and then create index pattern.  
+![Docker step 5](/image_resources/kibana3.PNG) 
+<br />
+
+6. Navigate back to Discover (it may take 1-2minutes for the logs to propagate), and we can the logs is already streaming.
+![Docker step 6](/image_resources/kibana4.PNG) 
+<br />
+
+7. We can filter the logs based on the available fields. I want to explain about **tag**. We need to navigate back to <em>docker-compose.yml</em>.  
+In docker-compose.yml, i added tag options in flask and kibana services, namely <em>flask_app</em> and <em>flask_kibana</em>. For kibana, i just set to log everything.  
+In flask apps, i only logs when the apps is having error message. Let's look at this example.  
+![Docker step 7](/image_resources/kibana5.PNG)  
+This is before hitting the apps with intend to error.  
+<br />
+
+8. Now, let us try hitting some random endpoints, or hit the validation. I am using postman for hitting GET request.  
+the url for the apps here is: **http://localhost:5000**.  
+I tried hitting http://localhost:5000/?height=180&weight=-60 and see what happens.  
+![Docker step 8](/image_resources/postman.PNG)  
+> The apps returns an error. Now let's refresh the logs in kibana.  
+![Docker step 9](/image_resources/kibana6.PNG)  
+> The logs was streamed with tag <em>flask_app</em> as defined.  
+<br />
+
+# Unit Tests
+Here is some tests I ran for the validation.  
+1. negative weight  
+![Docker step 10](/image_resources/postman.PNG)  
+2. negative height  
+![Docker step 11](/image_resources/postman2.PNG)  
+3. non-numeric height/weight  
+![Docker step 12](/image_resources/postman3.PNG)  
+4. actual validation  
+![Docker step 12](/image_resources/postman4.PNG)  
+<br />
+
+# Conclusion
+<p> From the requirements, there is some that I can not fulfill, like DNS hosting and centralized logging with public access. But I tried to give something like docker orchestration, dockerfile, and local logging using ELK stack. I hope that this tutorial can meet the requirements.</p>  
+<br />
+
+To terminate the containers, run command **docker-compose down -v**. -v is used to take down and remove all containers, networks, and volumes included.  
+
+**Thank you !!**
