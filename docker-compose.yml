@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  flask:
+    image: irivai/flask:latest  # use the image build from the workflow
+    container_name: flask
+    ports:
+      - 5000:5000           # map ports 5000 in localhost to port 5000 in container
+    logging:                # use this to send logs to logstash
+      driver: gelf          # greylog driver
+      options:
+        gelf-address: "udp://localhost:12201"   # the location of the logstash
+        tag: "flask_app"                        # used as searchable pattern in kibana
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node      #in elastic 7.x, by default it must consist of cluster(more than 1 node), so I use this option to run as single-node
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.8.0
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_URL: "http://elasticsearch:9200"
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+      - logstash
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://localhost:12201"
+        tag: "flask_kibana"
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.8.0
+    links:
+      - elasticsearch
+    volumes:                            # map local root directory to /etc/logstash in container
+      - .:/etc/logstash
+    command: logstash -f /etc/logstash/logstash.conf  # use the defined logstash.conf
+    ports:
+      - 12201:12201/udp
+    depends_on:
+      - elasticsearch
+
+# if you want to have persistent data, use map volume here
+# e.g: 
+#volumes:
+  #elasticdata: /path/to/directory 
