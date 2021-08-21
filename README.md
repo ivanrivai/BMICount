@@ -1,6 +1,11 @@
 # HappyFresh Simple Apps
 This is a simple apps to count the BMI (Body Mass Index) of a person. I developed using local environment, so there's some requirements that will not be met, but I hope the core concept is met.
 
+# Resource  
+https://hub.docker.com/r/irivai/flask     <em>image repository</em>  
+https://github.com/ivanrivai/happyFresh_assignment     <em>code repository</em>  
+<br />
+
 ## Pre-requisites:
 1. Windows 10-64bit
 2. Python version 3.9.x
