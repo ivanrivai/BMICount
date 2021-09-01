@@ -1,4 +1,4 @@
-# HappyFresh Simple Apps
+# BMI Simple Apps
 This is a simple apps to count the BMI (Body Mass Index) of a person. I developed using local environment (DockerDesktop). I also added ELK stack for monitoring and logging example.
 
 # Resource  
