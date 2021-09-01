@@ -1,5 +1,5 @@
 # HappyFresh Simple Apps
-This is a simple apps to count the BMI (Body Mass Index) of a person. I developed using local environment, so there's some requirements that will not be met, but I hope the core concept is met.
+This is a simple apps to count the BMI (Body Mass Index) of a person. I developed using local environment (DockerDesktop). I also added ELK stack for monitoring and logging example.
 
 # Resource  
 https://hub.docker.com/r/irivai/flask     <em>image repository</em>  
@@ -127,10 +127,6 @@ Here is some tests I ran for the validation.
 ![Docker step 12](/image_resources/postman3.PNG)  
 4. actual validation  
 ![Docker step 12](/image_resources/postman4.PNG)  
-<br />
-
-# Conclusion
-<p> From the requirements, there is some that I can not fulfill, like DNS hosting and centralized logging with public access. But I tried to give something like docker orchestration, dockerfile, and local logging using ELK stack. I hope that this tutorial can meet the requirements.</p>  
 <br />
 
 To terminate the containers, run command **docker-compose down -v**. -v is used to take down and remove all containers, networks, and volumes included.  
