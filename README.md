@@ -3,7 +3,6 @@ This is a simple apps to count the BMI (Body Mass Index) of a person. I develope
 
 # Resource  
 https://hub.docker.com/r/irivai/flask     <em>image repository</em>  
-https://github.com/ivanrivai/happyFresh_assignment     <em>code repository</em>  
 <br />
 
 ## Pre-requisites:
